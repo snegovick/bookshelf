@@ -1,0 +1,3 @@
+<div style="background-image: url('{imgsrc}'); width: {width}px; height: {height}px">
+  <i style="color: #00ff00;" class="fa fa-check"></i>
+</div>

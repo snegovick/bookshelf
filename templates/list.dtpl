@@ -1,0 +1,21 @@
+<div>
+  {#entries}
+  <div class="container">
+    <div class="col-xs-1">
+      {storeid}
+    </div>
+    <div class="col-xs-6">
+      <p><strong>{content.header}</strong> <em>{content.authors}</em> {content.year}</p>
+    </div>
+    <div class="col-xs-4">
+      {#images}
+      <a href="/static/upload/{.}"><img src="/static/upload/thumb_{.}" /></a>
+      {/images}
+    </div>
+
+    <div class="col-xs-1">
+      <p class="text-right"><a class="btn btn-primary" role="button" id="edit-a" href="{uuid}">Edit</a></p>
+    </div>
+  </div>
+  {/entries}
+</div>

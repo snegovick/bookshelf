@@ -1,0 +1,44 @@
+<form class="form-horizontal" id="book-post-form">
+  <div class="control-group">
+    <label class="control-label" for="header">Название</label>
+    <div class="controls">
+      <textarea rows="4" id="header">{content.header}</textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="authors">Авторы</label>
+    <div class="controls">
+      <input id="authors" type="text" value="{content.authors}"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Год издания</label>
+    <div class="controls" for="year">
+      <input id="year" type="text" value="{content.year}"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Место хранения</label>
+    <div class="controls" for="storeid">
+      <input id="storeid" type="text" value="{storeid}"/>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Отправить</button>
+      <a id="upload-image" class="btn btn-primary" href=""><i id="photo-icon" class="fa fa-camera"></i></a>
+      <input style="display:none;" type="file" id="upload" accept="image/*" multiple/>
+      <a class="btn btn-danger" role="button" id="edit-cancel">Cancel</a>
+    </div>
+  </div>
+  <div id="preview">
+    <div class="row">
+      {#images}
+      <div class="col-md-1">
+        <a class="thumbnail" href="/static/upload/{.}"><img src="/static/upload/thumb_{.}" /></a>
+      </div>
+      {/images}
+    </div>
+  </div>
+</form>

@@ -1,0 +1,6 @@
+<p>Header: {header}</p>
+<p>Year: {year}</p>
+<p>Authors: {authors}</p>
+{#images}
+<img src="{.}"></img>
+{/images}

@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="">
+    <link rel=stylesheet type=text/css href="/static/font-awesome-4.0.3/css/font-awesome.css">
+    <link rel=stylesheet type=text/css href="/static/bootstrap.min.css">
+    <link rel=stylesheet type=text/css href="/static/bootstrap-theme.min.css">
+        
+    <link rel=stylesheet type=text/css href="/static/style.css">
+
+    <link href="/static/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+
+    <style>
+	    <!-- .cat-bubble { -->
+	    <!-- float:left; -->
+	    <!-- position:relative; -->
+      <!-- top: 20px; -->
+	    <!-- display: block; -->
+	    <!-- background-color: #ccc; -->
+	    <!-- margin-left: 0px; -->
+      <!-- margin-bottom: 30px; -->
+	    <!-- padding: 10px; -->
+	    <!-- width:100%; -->
+	    <!-- border:4px solid #333; -->
+	    <!-- -moz-border-radius:30px; -->
+	    <!-- -webkit-border-radius:30px; -->
+	    <!-- border-radius:30px; -->
+	    <!-- -moz-box-shadow:0 0 5px #888888; -->
+	    <!-- -webkit-box-shadow:0 0 5px #888888; -->
+	    <!-- box-shadow:0 0 5px #888888; -->
+	    <!-- } -->
+
+	    <!-- .cat-bubble:after { -->
+	    <!-- display: block; -->
+	    <!-- position:absolute; -->
+	    <!-- left: 10%; -->
+	    <!-- top: -20px; -->
+	    <!-- content:" "; -->
+	    <!-- border-color:  transparent transparent #333 #333; -->
+	    <!-- border-style:solid; -->
+	    <!-- border-width:10px; -->
+	    <!-- } -->
+
+	    <!-- .cat-bubble:before { -->
+	    <!-- display: block; -->
+	    <!-- position:absolute; -->
+	    <!-- left: 80%; -->
+	    <!-- top: -20px; -->
+	    <!-- content:" "; -->
+	    <!-- border-color:  transparent #333 #333 transparent; -->
+	    <!-- border-style:solid; -->
+	    <!-- border-width:10px; -->
+	    <!-- } -->
+
+	    .map-bubble {
+	    float:left;
+	    position:relative;
+      top: 0px;
+	    display: block;
+	    background-color: #ccc;
+	    margin-left: 0px;
+	    padding: 10px;
+	    width:100%;
+	    border:4px solid #333;
+	    -moz-border-radius:10px;
+	    -webkit-border-radius:10px;
+	    border-radius:10px;
+	    -moz-box-shadow:0 0 5px #888888;
+	    -webkit-box-shadow:0 0 5px #888888;
+	    box-shadow:0 0 5px #888888;
+	    
+	    }
+
+	    .map-bubble:after {
+	    display: block;
+	    position:absolute;
+	    left: 10%;
+      bottom: -40px;
+	    content:" ";
+	    border-color: #333 transparent transparent transparent;
+	    border-style:solid;
+	    border-width:20px;
+	    }
+
+      .sidebar {
+      background: #ffffff;
+      }
+
+      .content-subhead {
+      color: #292929;
+      text-transform: none;
+      }
+
+      #site-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      }
+
+      #blog {
+      width: 30%;
+      height: 100%;
+      position: absolute;
+      left: 70%;
+      top: 0px;
+      }
+
+      #blog-post {
+      position: relative;
+      padding: 2px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background-color: #e1d827;
+      }
+
+      #container {
+      width: 70%;
+      height: 100%;
+      position: relative;
+      }
+      
+      #auth,
+      #map {
+      position: absolute;
+      top:0px;
+      left:0px;
+      height: 100%;
+      width: 100%;
+      }
+      
+      #auth {
+      z-index: 10;
+      pointer-events: none;
+      }
+
+      #auth-contents {
+      pointer-events: auto;
+      background-color:#fff;
+      float: right;
+      }
+
+      #profile {
+      pointer-events: auto;
+      background-color:#fff;
+      width: 30%;
+      float: right;
+      }
+
+      #login-form {
+      pointer-events: auto;
+      background-color:#fff;
+      float: right;
+      }
+      
+    </style>
+
+    <script type="text/javascript" src="/static/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="/static/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="/static/bookshelf.js"></script>
+    <script type="text/javascript" src="/static/dust.js"></script>
+    <script type="text/javascript" src="/static/templates.js"></script>
+    <script type="text/javascript" src="/static/jquery.mousewheel.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+      console.log("loading document");
+      mod_events.init(mod_events);
+      mod_events.run(mod_events, "load", null);
+      });
+    </script>
+
+    <title>Sudden cat</title>
+  </head>
+
+  <body>
+    <div id="site-container">
+      <div id="auth">
+        <div id="auth-contents"></div>
+        <div id="auth-form" style="display: none;">
+          <form method="post" class="pure-form" id="login-form">
+            <fieldset>
+              <legend>Вход на сайт</legend>
+              <input class="text" size="20" type="text" name="username" id="username" value="" />
+              <input class="text" size="20" type="password" id="password" name="password" value="" />
+              <button class="pure-button pure-button-primary" type="submit"><img alt="ok" src="/static/tick.png" />Вход</button>
+            </fieldset>
+          </form>
+        </div>
+        <div id="login-result" style="display:none;"></div>
+        <div id="logout" style="display:none;"></div>
+        <div id="container"></div>
+      </div>
+      <div class="container" id="content">
+        <div class="container" id="buttons"></div>
+        <div class="container" id="active-zone"></div>
+      </div>
+    </div>
+  </body>
+</html>
