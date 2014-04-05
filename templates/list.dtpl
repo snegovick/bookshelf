@@ -1,13 +1,19 @@
 <div>
+  <div class="container">
+    <div class="col-xs-1"><a id="sort-storage" href="#"><span id="up">Storage</span></a></div>
+    <div class="col-xs-8"><a id="sort-name" href="#"><span id="up">Name</span></a>, <a id="sort-author" href="#"><span id="up">Author</span></a></div>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-1"></div>
+  </div>
   {#entries}
   <div class="container">
     <div class="col-xs-1">
       {storeid}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-8">
       <p><strong>{content.header}</strong> <em>{content.authors}</em> {content.year}</p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-2">
       {#images}
       <a href="/static/upload/{.}"><img src="/static/upload/thumb_{.}" /></a>
       {/images}

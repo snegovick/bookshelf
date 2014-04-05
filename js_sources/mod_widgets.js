@@ -14,6 +14,13 @@ ModWidgets.prototype = {
   list_add_book_button_a: "#add-book-a",
   list_add_book_button_s: "#add-book-s",
   list_edit_book_template: "./edit_book.dtpl",
+  list_sort_storage_a: "a#sort-storage",
+  list_sort_name_a: "a#sort-name",
+  list_sort_author_a: "a#sort-author",
+  list_sort_storage_s: "a#sort-storage > span",
+  list_sort_name_s: "a#sort-name > span",
+  list_sort_author_s: "a#sort-author > span",
+
   book_get_rq: "/api/getbook/"
 };
 
