@@ -1,7 +1,8 @@
 function ModState() {};
 
 ModState.prototype = {
-  authed: false
+  authed: false,
+  uuid: null
 };
 
 var mod_state = new ModState();

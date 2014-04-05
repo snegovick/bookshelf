@@ -10,6 +10,7 @@ ModEvents.prototype = {
   login: function( self, status ) {
     mod_auth.display(mod_auth);
     if (status==true) {
+      mod_state.authed = true;
       mod_state.uuid = mod_auth.uuid;
     } else {
 

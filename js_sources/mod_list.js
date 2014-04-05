@@ -10,7 +10,6 @@ ModList.prototype = {
       data = {"content": {"year": "", "header": "", "authors" : ""}};
     }
     dust.render(mod_widgets.list_edit_book_template, data, function(err, out) {
-      console.log(out);
       $(mod_widgets.buttons_div_id).html(out);
       self.upload_image_handler(self);
       self.image_handler(self);
@@ -19,14 +18,12 @@ ModList.prototype = {
   },
 
   show_book_editor: function ( self, uuid ) {
-    console.log("show_book_editor");
-    console.log("uuid:"+uuid);
+    if (mod_state.authed == false) {
+      return;
+    }
     if (uuid!=null && uuid!="") {
-      console.log("loading book");
       self.book_uuid = uuid;
       $.getJSON(mod_widgets.book_get_rq+self.book_uuid, function(data) {
-        console.log("error: "+data["error"]);
-        console.log(data);
         self.post_images = data["data"]["images"];
         if (data["error"]==null) {
           self.render_book_template(self, data["data"]);
@@ -41,7 +38,6 @@ ModList.prototype = {
 
   edit_book_click_handler: function( self ) {
     $('#edit-a').die('click').live('click', function(e) {
-      console.log(e.target);
       var uuid = $(e.target).attr('href');
       self.show_book_editor(self, uuid);
       mod_events.edit(mod_events, uuid);
@@ -152,7 +148,6 @@ ModList.prototype = {
       mod_events.load(mod_events);
     });
     $("#book-post-form").die('submit').live('submit', function() {
-      console.log("book post form");
       var header = $('#header').attr('value');
       var authors = $('#authors').attr('value');
       var year = $('#year').attr('value');
@@ -185,40 +180,29 @@ ModList.prototype = {
   upload_image_handler : function( self ) {
     $("#upload-image").die('click').live('click', function(e) {
       $("#upload").click();
-      console.log("upload clicked");
       return false;
     });
   },
 
   image_handler : function( self ) {
     $("#upload").change(function(f) {
-      console.log("file submit");
-      console.log("value: ");
       console.log($(this));
-      
-      
       for (var i = 0; i<$(this).context.files.length; i++) {
         var fl = $(this).context.files[i];
         var reader = new FileReader();
-        console.log(fl);
         
-        console.log("reading");
         reader.readAsDataURL(fl);
         
         var data = new FormData();
         data.append("file", fl);
         
-        console.log(data);
         $.ajax({type: "POST", url: "/api/upload",
                 contentType: false,//"multipart/form-data",
                 cache: false,
                 processData: false,
                 data: data,
                 success: function(data) {
-                  console.log("error:", data.error);
-                  console.log(data);
                   var f_reply = data.data.files[0];
-                  console.log(f_reply);
                   
                   if (f_reply.status == true) {
                     dust.render("./image_preview.dtpl", {"width": 50, "height": 50, "imgsrc": f_reply["path"]+"thumb_"+f_reply["name"]}, function(err, out) {
@@ -239,7 +223,6 @@ ModList.prototype = {
 
   add_book_click_handler: function( self ) {
     $(mod_widgets.list_add_book_button_a).die('click').live('click', function(e) {
-      console.log("add book handler");
       self.show_book_editor(self);
       return false;
     });
@@ -247,10 +230,8 @@ ModList.prototype = {
 
   display_list: function(self, data) {
     dust.render(mod_widgets.list_template, data, function(err, out) {
-      console.log("rendered:");
-      console.log(out);
       $(mod_widgets.active_zone_div_id).html(out);
-      dust.render(mod_widgets.list_buttons_template, {}, function(err, out) {
+      dust.render(mod_widgets.list_buttons_template, {"authed": mod_state.authed}, function(err, out) {
         $(mod_widgets.buttons_div_id).html(out);
         self.add_book_click_handler(self);
       });
@@ -264,8 +245,6 @@ ModList.prototype = {
 
   request_books_list: function( self, show_buttons ) {
     $.getJSON(mod_widgets.list_get_rq, function(data) {
-      console.log("error: "+data["error"]);
-      console.log(data);
       if (data["error"]==null) {
         self.data = data;
         self.display_list(self, data);
